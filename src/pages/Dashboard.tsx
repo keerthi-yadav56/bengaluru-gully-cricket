@@ -229,6 +229,15 @@ export default function Dashboard() {
               <div className="text-sm text-muted-foreground">
                 {user?.uniqueId ? `ID: ${user.uniqueId}` : "Complete your profile"}
               </div>
+              {user?.role === "admin" && (
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => navigate("/admin")}
+                >
+                  Admin Panel
+                </Button>
+              )}
               <Button
                 variant="outline"
                 size="sm"
