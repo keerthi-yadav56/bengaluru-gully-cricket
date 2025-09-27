@@ -72,13 +72,24 @@ export default function Landing() {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               {!isLoading && (
-                <Button 
-                  onClick={() => navigate(isAuthenticated ? "/dashboard" : "/auth")}
-                  className="font-medium"
-                >
-                  {isAuthenticated ? "Dashboard" : "Get Started"}
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Button 
+                    onClick={() => navigate(isAuthenticated ? "/dashboard" : "/auth")}
+                    className="font-medium"
+                  >
+                    {isAuthenticated ? "Dashboard" : "Get Started"}
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                  {user?.role === "admin" && (
+                    <Button
+                      variant="outline"
+                      onClick={() => navigate("/admin")}
+                      className="font-medium"
+                    >
+                      Admin Panel
+                    </Button>
+                  )}
+                </div>
               )}
             </motion.div>
           </div>
