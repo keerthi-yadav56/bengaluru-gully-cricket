@@ -127,6 +127,15 @@ export default function Landing() {
                 View Tournaments
                 <Trophy className="ml-2 w-5 h-5" />
               </Button>
+              <Button 
+                size="lg" 
+                variant="outline"
+                onClick={() => navigate("/players")}
+                className="text-lg px-8 py-6 font-medium"
+              >
+                Explore Players
+                <Users className="ml-2 w-5 h-5" />
+              </Button>
             </motion.div>
           </div>
         </div>
