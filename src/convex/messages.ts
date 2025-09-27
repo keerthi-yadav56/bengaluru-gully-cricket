@@ -28,8 +28,9 @@ export const getAllMessages = query({
   args: {},
   handler: async (ctx) => {
     const user = await getCurrentUser(ctx);
+    // Return empty array for non-admins instead of throwing to avoid client crashes
     if (!user || user.role !== "admin") {
-      throw new Error("Only admins can view messages");
+      return [];
     }
 
     return await ctx.db
