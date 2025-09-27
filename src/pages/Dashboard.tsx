@@ -15,7 +15,7 @@ import { toast } from "sonner";
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { isLoading, isAuthenticated, user } = useAuth();
+  const { isLoading, isAuthenticated, user, signOut } = useAuth();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -225,8 +225,21 @@ export default function Dashboard() {
               </div>
               <span className="text-xl font-bold tracking-tight">Dashboard</span>
             </div>
-            <div className="text-sm text-muted-foreground">
-              {user?.uniqueId ? `ID: ${user.uniqueId}` : "Complete your profile"}
+            <div className="flex items-center gap-3">
+              <div className="text-sm text-muted-foreground">
+                {user?.uniqueId ? `ID: ${user.uniqueId}` : "Complete your profile"}
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  // Sign out and navigate to auth
+                  signOut();
+                  navigate("/auth");
+                }}
+              >
+                Logout
+              </Button>
             </div>
           </div>
         </div>
