@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import Tournaments from "./pages/Tournaments.tsx";
 import Players from "./pages/Players.tsx";
+import Admin from "@/pages/Admin.tsx";
 import "./types/global.d.ts";
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
@@ -56,6 +57,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/tournaments" element={<Tournaments />} />
             <Route path="/players" element={<Players />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
