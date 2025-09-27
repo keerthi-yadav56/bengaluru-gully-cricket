@@ -19,6 +19,7 @@ import type * as authHelpers from "../authHelpers.js";
 import type * as http from "../http.js";
 import type * as messages from "../messages.js";
 import type * as players from "../players.js";
+import type * as seed from "../seed.js";
 import type * as teams from "../teams.js";
 import type * as tournaments from "../tournaments.js";
 import type * as users from "../users.js";
@@ -38,6 +39,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   messages: typeof messages;
   players: typeof players;
+  seed: typeof seed;
   teams: typeof teams;
   tournaments: typeof tournaments;
   users: typeof users;

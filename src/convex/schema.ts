@@ -38,7 +38,8 @@ const schema = defineSchema(
       isPhoneVerified: v.optional(v.boolean()),
     }).index("email", ["email"]) // index for the email. do not remove or modify
       .index("by_unique_id", ["uniqueId"])
-      .index("by_phone", ["phoneNumber"]),
+      .index("by_phone", ["phoneNumber"])
+      .index("by_role", ["role"]),
 
     // Player profiles
     players: defineTable({
