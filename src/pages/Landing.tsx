@@ -73,22 +73,27 @@ export default function Landing() {
             >
               {!isLoading && (
                 <div className="flex items-center gap-2">
-                  <Button 
-                    onClick={() => navigate(isAuthenticated ? "/dashboard" : "/auth")}
+              <Button 
+                onClick={() => {
+                  if (isAuthenticated) {
+                    // If admin, go to admin panel; otherwise go to dashboard
+                    navigate(user?.role === "admin" ? "/admin" : "/dashboard");
+                  } else {
+                    navigate("/auth");
+                  }
+                }}
+                className="font-medium"
+              >
+                {isAuthenticated ? (user?.role === "admin" ? "Admin Panel" : "Dashboard") : "Get Started"}
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => navigate("/admin")}
                     className="font-medium"
                   >
-                    {isAuthenticated ? "Dashboard" : "Get Started"}
-                    <ArrowRight className="ml-2 w-4 h-4" />
+                    Admin Panel
                   </Button>
-                  {user?.role === "admin" && (
-                    <Button
-                      variant="outline"
-                      onClick={() => navigate("/admin")}
-                      className="font-medium"
-                    >
-                      Admin Panel
-                    </Button>
-                  )}
                 </div>
               )}
             </motion.div>
@@ -123,7 +128,13 @@ export default function Landing() {
             >
               <Button 
                 size="lg" 
-                onClick={() => navigate(isAuthenticated ? "/dashboard" : "/auth")}
+                onClick={() => {
+                  if (isAuthenticated) {
+                    navigate(user?.role === "admin" ? "/admin" : "/dashboard");
+                  } else {
+                    navigate("/auth");
+                  }
+                }}
                 className="text-lg px-8 py-6 font-medium"
               >
                 {isAuthenticated ? `Welcome back, ${user?.name}` : "Join the Community"}
@@ -190,24 +201,45 @@ export default function Landing() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Card className="card-modern hover:shadow-md transition-shadow duration-300 h-full">
-                  <CardContent className="p-0">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
-                      <feature.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+            {features.map((feature, index) => {
+              // Determine navigation path based on feature title
+              const getNavigationPath = (title: string) => {
+                switch (title) {
+                  case "Player Profiles":
+                    return "/players";
+                  case "Tournaments":
+                    return "/tournaments";
+                  case "Team Management":
+                    return isAuthenticated ? "/dashboard" : "/auth";
+                  case "Rewards & Recognition":
+                    return "/tournaments";
+                  default:
+                    return "/";
+                }
+              };
+
+              return (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Card 
+                    className="card-modern hover:shadow-lg transition-all duration-300 h-full cursor-pointer hover:scale-105"
+                    onClick={() => navigate(getNavigationPath(feature.title))}
+                  >
+                    <CardContent className="p-6">
+                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                        <feature.icon className="w-6 h-6 text-primary" />
+                      </div>
+                      <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -250,8 +282,13 @@ export default function Landing() {
               </div>
               <span className="font-bold">The Bengaluru Gully Cricket</span>
             </div>
-            <div className="text-muted-foreground">
-              © 2024 BGC. All rights reserved.
+            <div className="flex flex-col items-center md:items-end gap-2">
+              <div className="text-muted-foreground text-sm">
+                © 2024 BGC. All rights reserved.
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Developed by <span className="font-medium text-foreground">Keerthi Yadav</span>
+              </div>
             </div>
           </div>
         </div>

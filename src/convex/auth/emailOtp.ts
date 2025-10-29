@@ -10,6 +10,13 @@ export const emailOtp = Email({
     return generateRandomString(6, alphabet("0-9"));
   },
   async sendVerificationRequest({ identifier: email, provider, token }) {
+    // For admin@bgc.local, log the OTP to console for development
+    if (email === "admin@bgc.local") {
+      console.log(`🔐 ADMIN OTP for ${email}: ${token}`);
+      console.log(`Use this OTP to login: ${token}`);
+      return;
+    }
+
     try {
       await axios.post(
         "https://email.vly.ai/send_otp",

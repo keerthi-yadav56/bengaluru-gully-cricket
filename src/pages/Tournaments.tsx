@@ -9,11 +9,13 @@ import { api } from "@/convex/_generated/api";
 import { useAuth } from "@/hooks/use-auth";
 import { useMutation, useQuery } from "convex/react";
 import { motion } from "framer-motion";
-import { Banknote, Calendar, MapPin, Plus, Trophy, Users } from "lucide-react";
+import { Banknote, Calendar, Home, MapPin, Plus, Trophy, Users } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
 export default function Tournaments() {
+  const navigate = useNavigate();
   const { isLoading: authLoading, isAuthenticated, user } = useAuth();
   const tournaments = useQuery(api.tournaments.getAllTournaments);
   const allPlayers = useQuery(api.players.getAllPlayers);
@@ -81,6 +83,14 @@ export default function Tournaments() {
         <div className="container-modern">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate("/")}
+                className="flex items-center gap-2"
+              >
+                <Home className="w-4 h-4" />
+              </Button>
               <div className="w-10 h-10 bg-primary rounded-lg grid place-items-center">
                 <Trophy className="w-6 h-6 text-primary-foreground" />
               </div>

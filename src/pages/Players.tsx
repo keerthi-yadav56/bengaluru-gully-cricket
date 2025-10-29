@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -6,10 +7,12 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
 import { motion } from "framer-motion";
-import { Badge, Users } from "lucide-react";
+import { Badge, Home, Users } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router";
 
 export default function Players() {
+  const navigate = useNavigate();
   const players = useQuery(api.players.getAllPlayers);
 
   // filters
@@ -33,6 +36,14 @@ export default function Players() {
         <div className="container-modern">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate("/")}
+                className="flex items-center gap-2"
+              >
+                <Home className="w-4 h-4" />
+              </Button>
               <div className="w-10 h-10 bg-primary rounded-lg grid place-items-center">
                 <Users className="w-6 h-6 text-primary-foreground" />
               </div>
