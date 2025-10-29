@@ -118,7 +118,7 @@ export default function Landing() {
           <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-background/70 to-background/80" />
           
           {/* Decorative cricket sketch elements */}
-          <div className="absolute top-20 left-10 opacity-20 rotate-12">
+          <div className="absolute top-20 left-10 opacity-30 rotate-12">
             <svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
               {/* Cricket Ball */}
               <circle cx="75" cy="75" r="60" stroke="currentColor" strokeWidth="4" className="text-primary" strokeDasharray="8 4"/>
@@ -128,7 +128,7 @@ export default function Landing() {
               <circle cx="75" cy="75" r="8" fill="currentColor" className="text-primary"/>
             </svg>
           </div>
-          <div className="absolute bottom-20 right-10 opacity-20 -rotate-12">
+          <div className="absolute bottom-20 right-10 opacity-30 -rotate-12">
             <svg width="120" height="180" viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg">
               {/* Cricket Bat */}
               <rect x="50" y="20" width="20" height="100" rx="10" fill="currentColor" className="text-primary" opacity="0.3"/>
@@ -141,7 +141,7 @@ export default function Landing() {
               <line x1="50" y1="90" x2="70" y2="90" stroke="currentColor" strokeWidth="2" className="text-primary"/>
             </svg>
           </div>
-          <div className="absolute top-1/3 right-20 opacity-15 rotate-45">
+          <div className="absolute top-1/3 right-20 opacity-25 rotate-45">
             <svg width="100" height="140" viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
               {/* Cricket Stumps */}
               <rect x="10" y="20" width="8" height="100" rx="4" stroke="currentColor" strokeWidth="2" className="text-primary"/>
@@ -151,7 +151,7 @@ export default function Landing() {
               <rect x="8" y="12" width="84" height="6" rx="3" stroke="currentColor" strokeWidth="2" className="text-primary"/>
             </svg>
           </div>
-          <div className="absolute bottom-1/3 left-20 opacity-15 -rotate-12">
+          <div className="absolute bottom-1/3 left-20 opacity-25 -rotate-12">
             <Trophy className="w-32 h-32 text-primary" strokeWidth={1.5} />
           </div>
         </div>
