@@ -116,6 +116,24 @@ export default function Landing() {
             className="w-full h-full object-cover opacity-20"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-background/70 to-background/80" />
+          
+          {/* Decorative cricket elements */}
+          <div className="absolute top-20 left-10 opacity-10 rotate-12">
+            <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="60" cy="60" r="50" stroke="currentColor" strokeWidth="3" className="text-primary"/>
+              <circle cx="60" cy="60" r="40" stroke="currentColor" strokeWidth="2" className="text-primary"/>
+              <path d="M60 20 L60 100 M20 60 L100 60" stroke="currentColor" strokeWidth="2" className="text-primary"/>
+            </svg>
+          </div>
+          <div className="absolute bottom-20 right-10 opacity-10 -rotate-12">
+            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="45" y="10" width="10" height="80" rx="5" fill="currentColor" className="text-primary"/>
+              <path d="M30 20 Q50 10 70 20 L70 35 Q50 25 30 35 Z" fill="currentColor" className="text-primary"/>
+            </svg>
+          </div>
+          <div className="absolute top-1/2 right-1/4 opacity-10 rotate-45">
+            <Trophy className="w-24 h-24 text-primary" />
+          </div>
         </div>
         
         <div className="container-modern">
