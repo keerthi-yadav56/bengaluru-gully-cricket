@@ -5,11 +5,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Badge } from "@/components/ui/badge";
 import { api } from "@/convex/_generated/api";
 import { useAuth } from "@/hooks/use-auth";
 import { useMutation, useQuery } from "convex/react";
 import { motion } from "framer-motion";
-import { Banknote, Calendar, Home, MapPin, Plus, Trophy, Users } from "lucide-react";
+import { Banknote, Calendar, Home, MapPin, Plus, Trophy, Users, Target, Award } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
@@ -77,6 +78,16 @@ export default function Tournaments() {
     }
   };
 
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "upcoming": return "bg-green-500/10 text-green-700 border-green-500/20";
+      case "ongoing": return "bg-blue-500/10 text-blue-700 border-blue-500/20";
+      case "completed": return "bg-gray-500/10 text-gray-700 border-gray-500/20";
+      case "cancelled": return "bg-red-500/10 text-red-700 border-red-500/20";
+      default: return "bg-gray-500/10 text-gray-700 border-gray-500/20";
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
       <nav className="border-b border-border/50 bg-background/80 backdrop-blur-sm sticky top-0 z-40">
@@ -91,8 +102,8 @@ export default function Tournaments() {
               >
                 <Home className="w-4 h-4" />
               </Button>
-              <div className="w-10 h-10 bg-primary rounded-lg grid place-items-center">
-                <Trophy className="w-6 h-6 text-primary-foreground" />
+              <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-500 rounded-lg grid place-items-center shadow-md">
+                <Trophy className="w-6 h-6 text-white" />
               </div>
               <span className="text-xl font-bold tracking-tight">Tournaments</span>
             </div>
@@ -115,10 +126,14 @@ export default function Tournaments() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-8"
+            className="mb-8 text-center"
           >
-            <h1 className="text-3xl font-bold tracking-tight">Available Tournaments</h1>
-            <p className="text-muted-foreground mt-2">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-4">
+              <Trophy className="w-4 h-4" />
+              <span className="text-sm font-medium">Compete & Win</span>
+            </div>
+            <h1 className="text-4xl font-bold tracking-tight mb-3">Available Tournaments</h1>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Join upcoming cricket tournaments across Bengaluru. Team owners register on behalf of their teams.
             </p>
           </motion.div>
@@ -131,28 +146,30 @@ export default function Tournaments() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
               >
-                <Card className="card-modern h-full">
+                <Card className="card-modern h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 group">
                   <CardHeader className="pb-4">
                     <CardTitle className="flex items-center justify-between">
-                      <span className="tracking-tight">{t.name}</span>
-                      <span className="text-xs text-muted-foreground uppercase">{t.status}</span>
+                      <span className="tracking-tight group-hover:text-primary transition-colors">{t.name}</span>
+                      <Badge className={`text-xs uppercase ${getStatusColor(t.status)}`}>
+                        {t.status}
+                      </Badge>
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className="flex items-center gap-2 text-sm">
-                      <Users className="w-4 h-4 text-muted-foreground" />
-                      <span>Max teams: {t.maxTeams}</span>
+                    <div className="flex items-center gap-2 text-sm bg-muted/50 p-2 rounded-lg">
+                      <Users className="w-4 h-4 text-primary" />
+                      <span className="font-medium">Max teams: {t.maxTeams}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <Banknote className="w-4 h-4 text-muted-foreground" />
-                      <span>Entry fee per person: ₹{t.entryFeePerPerson}</span>
+                    <div className="flex items-center gap-2 text-sm bg-muted/50 p-2 rounded-lg">
+                      <Banknote className="w-4 h-4 text-green-600" />
+                      <span className="font-medium">Entry fee: ₹{t.entryFeePerPerson}/person</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <Calendar className="w-4 h-4 text-muted-foreground" />
+                    <div className="flex items-center gap-2 text-sm bg-muted/50 p-2 rounded-lg">
+                      <Calendar className="w-4 h-4 text-blue-600" />
                       <span>{t.date}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <MapPin className="w-4 h-4 text-muted-foreground" />
+                    <div className="flex items-center gap-2 text-sm bg-muted/50 p-2 rounded-lg">
+                      <MapPin className="w-4 h-4 text-red-600" />
                       <span className="truncate">{t.location}</span>
                     </div>
                     {t.mapLink && (
@@ -160,22 +177,29 @@ export default function Tournaments() {
                         href={t.mapLink}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-sm underline text-primary"
+                        className="text-sm underline text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-1"
                       >
+                        <MapPin className="w-3 h-3" />
                         Open Map
                       </a>
                     )}
-                    <div className="text-sm">
-                      <span className="font-medium">Overs per match:</span> {t.oversPerMatch}
+                    <div className="text-sm bg-muted/50 p-2 rounded-lg">
+                      <span className="font-medium flex items-center gap-2">
+                        <Target className="w-4 h-4 text-primary" />
+                        Overs: {t.oversPerMatch}
+                      </span>
                     </div>
-                    <div className="text-sm">
-                      <span className="font-medium">Rewards:</span> {t.rewards}
+                    <div className="text-sm bg-muted/50 p-2 rounded-lg">
+                      <span className="font-medium flex items-center gap-2">
+                        <Award className="w-4 h-4 text-amber-600" />
+                        Rewards: {t.rewards}
+                      </span>
                     </div>
-                    <div className="text-sm">
+                    <div className="text-sm bg-muted/50 p-2 rounded-lg">
                       <span className="font-medium">Registration deadline:</span> {t.registrationDeadline}
                     </div>
-                    <div className="text-xs text-muted-foreground">
-                      UPI ID (pay externally): <span className="font-mono">{t.upiId}</span>
+                    <div className="text-xs text-muted-foreground bg-muted/30 p-2 rounded-lg">
+                      UPI ID: <span className="font-mono font-medium">{t.upiId}</span>
                     </div>
 
                     <div className="pt-2">
@@ -183,7 +207,7 @@ export default function Tournaments() {
                         <Dialog open={open && selectedTournamentId === t._id} onOpenChange={(v) => { if (!v) setOpen(false); }}>
                           <DialogTrigger asChild>
                             <Button
-                              className="w-full"
+                              className="w-full shadow-md hover:shadow-lg transition-all"
                               onClick={() => openForTournament(t._id)}
                               disabled={t.status !== "upcoming"}
                             >
@@ -211,7 +235,7 @@ export default function Tournaments() {
                                     {(allPlayers ?? []).map((p: any) => (
                                       <label
                                         key={p._id}
-                                        className="flex items-center gap-3 rounded-md border p-2 cursor-pointer"
+                                        className="flex items-center gap-3 rounded-md border p-2 cursor-pointer hover:bg-muted/50 transition-colors"
                                       >
                                         <Checkbox
                                           checked={selected.has(p._id)}

@@ -10,7 +10,9 @@ import {
   Star,
   ArrowRight,
   Target,
-  Award
+  Award,
+  Zap,
+  TrendingUp
 } from "lucide-react";
 import { useNavigate } from "react-router";
 
@@ -22,30 +24,34 @@ export default function Landing() {
     {
       icon: Users,
       title: "Player Profiles",
-      description: "Create detailed cricket profiles with stats, photos, and playing preferences"
+      description: "Create detailed cricket profiles with stats, photos, and playing preferences",
+      gradient: "from-blue-500 to-cyan-500"
     },
     {
       icon: Trophy,
       title: "Tournaments",
-      description: "Join exciting cricket tournaments across Bengaluru with prizes and glory"
+      description: "Join exciting cricket tournaments across Bengaluru with prizes and glory",
+      gradient: "from-amber-500 to-orange-500"
     },
     {
       icon: Target,
       title: "Team Management",
-      description: "Form teams, register for tournaments, and manage your cricket squad"
+      description: "Form teams, register for tournaments, and manage your cricket squad",
+      gradient: "from-green-500 to-emerald-500"
     },
     {
       icon: Award,
       title: "Rewards & Recognition",
-      description: "Compete for trophies, prizes, and recognition in the cricket community"
+      description: "Compete for trophies, prizes, and recognition in the cricket community",
+      gradient: "from-purple-500 to-pink-500"
     }
   ];
 
   const stats = [
-    { number: "500+", label: "Active Players" },
-    { number: "50+", label: "Tournaments" },
-    { number: "25+", label: "Areas Covered" },
-    { number: "100+", label: "Teams Formed" }
+    { number: "500+", label: "Active Players", icon: Users },
+    { number: "50+", label: "Tournaments", icon: Trophy },
+    { number: "25+", label: "Areas Covered", icon: MapPin },
+    { number: "100+", label: "Teams Formed", icon: Target }
   ];
 
   return (
@@ -60,10 +66,10 @@ export default function Landing() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/70 rounded-lg flex items-center justify-center shadow-lg">
                 <Trophy className="w-6 h-6 text-primary-foreground" />
               </div>
-              <span className="text-xl font-bold tracking-tight">BGC</span>
+              <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">BGC</span>
             </motion.div>
             
             <motion.div
@@ -76,13 +82,12 @@ export default function Landing() {
               <Button 
                 onClick={() => {
                   if (isAuthenticated) {
-                    // If admin, go to admin panel; otherwise go to dashboard
                     navigate(user?.role === "admin" ? "/admin" : "/dashboard");
                   } else {
                     navigate("/auth");
                   }
                 }}
-                className="font-medium"
+                className="font-medium shadow-md hover:shadow-lg transition-all"
               >
                 {isAuthenticated ? (user?.role === "admin" ? "Admin Panel" : "Dashboard") : "Get Started"}
                 <ArrowRight className="ml-2 w-4 h-4" />
@@ -102,7 +107,13 @@ export default function Landing() {
       </nav>
 
       {/* Hero Section */}
-      <section className="section-padding">
+      <section className="section-padding relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        </div>
+        
         <div className="container-modern">
           <div className="text-center max-w-4xl mx-auto">
             <motion.div
@@ -110,9 +121,16 @@ export default function Landing() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6">
+                <Zap className="w-4 h-4" />
+                <span className="text-sm font-medium">Bengaluru's Premier Cricket Community</span>
+              </div>
+              
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-8">
                 The Bengaluru
-                <span className="block text-primary">Gully Cricket</span>
+                <span className="block bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+                  Gully Cricket
+                </span>
               </h1>
               <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
                 Join the ultimate cricket community in Bengaluru. Create your profile, 
@@ -135,7 +153,7 @@ export default function Landing() {
                     navigate("/auth");
                   }
                 }}
-                className="text-lg px-8 py-6 font-medium"
+                className="text-lg px-8 py-6 font-medium shadow-lg hover:shadow-xl transition-all"
               >
                 {isAuthenticated ? `Welcome back, ${user?.name}` : "Join the Community"}
                 <ArrowRight className="ml-2 w-5 h-5" />
@@ -164,7 +182,7 @@ export default function Landing() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-16 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5">
         <div className="container-modern">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -175,7 +193,12 @@ export default function Landing() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="text-4xl font-bold text-primary mb-2">{stat.number}</div>
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-3">
+                  <stat.icon className="w-6 h-6 text-primary" />
+                </div>
+                <div className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent mb-2">
+                  {stat.number}
+                </div>
                 <div className="text-muted-foreground font-medium">{stat.label}</div>
               </motion.div>
             ))}
@@ -192,6 +215,10 @@ export default function Landing() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-4">
+              <Star className="w-4 h-4" />
+              <span className="text-sm font-medium">Features</span>
+            </div>
             <h2 className="text-4xl font-bold tracking-tight mb-4">
               Everything You Need for Cricket
             </h2>
@@ -202,7 +229,6 @@ export default function Landing() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => {
-              // Determine navigation path based on feature title
               const getNavigationPath = (title: string) => {
                 switch (title) {
                   case "Player Profiles":
@@ -226,14 +252,14 @@ export default function Landing() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <Card 
-                    className="card-modern hover:shadow-lg transition-all duration-300 h-full cursor-pointer hover:scale-105"
+                    className="card-modern hover:shadow-xl transition-all duration-300 h-full cursor-pointer hover:scale-105 group border-2 hover:border-primary/20"
                     onClick={() => navigate(getNavigationPath(feature.title))}
                   >
                     <CardContent className="p-6">
-                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
-                        <feature.icon className="w-6 h-6 text-primary" />
+                      <div className={`w-14 h-14 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform`}>
+                        <feature.icon className="w-7 h-7 text-white" />
                       </div>
-                      <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                      <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">{feature.title}</h3>
                       <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
                     </CardContent>
                   </Card>
@@ -245,7 +271,12 @@ export default function Landing() {
       </section>
 
       {/* CTA Section */}
-      <section className="section-padding bg-primary/5">
+      <section className="section-padding bg-gradient-to-br from-primary/10 via-primary/5 to-background relative overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        </div>
+        
         <div className="container-modern">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -253,6 +284,10 @@ export default function Landing() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6">
+              <TrendingUp className="w-4 h-4" />
+              <span className="text-sm font-medium">Join Now</span>
+            </div>
             <h2 className="text-4xl font-bold tracking-tight mb-6">
               Ready to Play Cricket?
             </h2>
@@ -263,7 +298,7 @@ export default function Landing() {
             <Button 
               size="lg"
               onClick={() => navigate("/auth")}
-              className="text-lg px-8 py-6 font-medium"
+              className="text-lg px-8 py-6 font-medium shadow-lg hover:shadow-xl transition-all"
             >
               Get Started Now
               <ArrowRight className="ml-2 w-5 h-5" />
@@ -273,11 +308,11 @@ export default function Landing() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border/50 py-12">
+      <footer className="border-t border-border/50 py-12 bg-muted/30">
         <div className="container-modern">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-3 mb-4 md:mb-0">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/70 rounded-lg flex items-center justify-center shadow-md">
                 <Trophy className="w-5 h-5 text-primary-foreground" />
               </div>
               <span className="font-bold">The Bengaluru Gully Cricket</span>
