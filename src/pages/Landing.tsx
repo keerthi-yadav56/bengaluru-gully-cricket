@@ -206,12 +206,12 @@ export default function Landing() {
                 className="text-center"
               >
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary-foreground/20 backdrop-blur-sm mb-3">
-                  <stat.icon className="w-6 h-6 text-primary-foreground drop-shadow-lg" />
+                  <stat.icon className="w-6 h-6 text-blue-600 drop-shadow-lg" />
                 </div>
-                <div className="text-4xl font-bold text-primary-foreground mb-2 drop-shadow-lg">
+                <div className="text-4xl font-bold text-blue-600 mb-2 drop-shadow-lg">
                   {stat.number}
                 </div>
-                <div className="text-primary-foreground/90 font-medium drop-shadow">{stat.label}</div>
+                <div className="text-blue-700 font-medium drop-shadow">{stat.label}</div>
               </motion.div>
             ))}
           </div>
