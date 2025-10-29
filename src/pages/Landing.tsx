@@ -110,14 +110,12 @@ export default function Landing() {
       <section className="section-padding relative overflow-hidden">
         {/* Background image with overlay */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/95 z-10" />
           <img 
             src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=2000&auto=format&fit=crop"
             alt="Cricket players"
-            className="w-full h-full object-cover opacity-30"
+            className="w-full h-full object-cover opacity-20"
           />
-          <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl z-20" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl z-20" />
+          <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-background/70 to-background/80" />
         </div>
         
         <div className="container-modern">
@@ -190,12 +188,12 @@ export default function Landing() {
       {/* Stats Section */}
       <section className="py-16 relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/90 to-primary/95" />
           <img 
             src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2000&auto=format&fit=crop"
             alt="Cricket action"
-            className="w-full h-full object-cover opacity-20"
+            className="w-full h-full object-cover"
           />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/80 to-primary/85" />
         </div>
         <div className="container-modern">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
@@ -287,14 +285,12 @@ export default function Landing() {
       {/* CTA Section */}
       <section className="section-padding relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/95 z-10" />
           <img 
             src="https://images.unsplash.com/photo-1624526267942-ab0ff8a3e972?q=80&w=2000&auto=format&fit=crop"
             alt="Cricket team celebration"
-            className="w-full h-full object-cover opacity-25"
+            className="w-full h-full object-cover opacity-30"
           />
-          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl z-20" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl z-20" />
+          <div className="absolute inset-0 bg-gradient-to-br from-background/85 via-background/75 to-background/85" />
         </div>
         
         <div className="container-modern">
