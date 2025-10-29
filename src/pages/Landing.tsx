@@ -108,10 +108,16 @@ export default function Landing() {
 
       {/* Hero Section */}
       <section className="section-padding relative overflow-hidden">
-        {/* Background decorative elements */}
+        {/* Background image with overlay */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/95 z-10" />
+          <img 
+            src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=2000&auto=format&fit=crop"
+            alt="Cricket players"
+            className="w-full h-full object-cover opacity-30"
+          />
+          <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl z-20" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl z-20" />
         </div>
         
         <div className="container-modern">
@@ -182,7 +188,15 @@ export default function Landing() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5">
+      <section className="py-16 relative overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/90 to-primary/95" />
+          <img 
+            src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2000&auto=format&fit=crop"
+            alt="Cricket action"
+            className="w-full h-full object-cover opacity-20"
+          />
+        </div>
         <div className="container-modern">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -193,13 +207,13 @@ export default function Landing() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-3">
-                  <stat.icon className="w-6 h-6 text-primary" />
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary-foreground/20 backdrop-blur-sm mb-3">
+                  <stat.icon className="w-6 h-6 text-primary-foreground drop-shadow-lg" />
                 </div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent mb-2">
+                <div className="text-4xl font-bold text-primary-foreground mb-2 drop-shadow-lg">
                   {stat.number}
                 </div>
-                <div className="text-muted-foreground font-medium">{stat.label}</div>
+                <div className="text-primary-foreground/90 font-medium drop-shadow">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -271,10 +285,16 @@ export default function Landing() {
       </section>
 
       {/* CTA Section */}
-      <section className="section-padding bg-gradient-to-br from-primary/10 via-primary/5 to-background relative overflow-hidden">
+      <section className="section-padding relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/95 z-10" />
+          <img 
+            src="https://images.unsplash.com/photo-1624526267942-ab0ff8a3e972?q=80&w=2000&auto=format&fit=crop"
+            alt="Cricket team celebration"
+            className="w-full h-full object-cover opacity-25"
+          />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl z-20" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl z-20" />
         </div>
         
         <div className="container-modern">
