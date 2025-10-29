@@ -12,6 +12,7 @@ import type * as auth_emailOtp from "../auth/emailOtp.js";
 import type * as auth from "../auth.js";
 import type * as authHelpers from "../authHelpers.js";
 import type * as http from "../http.js";
+import type * as matches from "../matches.js";
 import type * as messages from "../messages.js";
 import type * as players from "../players.js";
 import type * as seed from "../seed.js";
@@ -38,6 +39,7 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   authHelpers: typeof authHelpers;
   http: typeof http;
+  matches: typeof matches;
   messages: typeof messages;
   players: typeof players;
   seed: typeof seed;

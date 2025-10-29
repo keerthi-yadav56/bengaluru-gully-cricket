@@ -115,6 +115,29 @@ const schema = defineSchema(
       respondedAt: v.optional(v.string()),
     }).index("by_from_user", ["fromUserId"])
       .index("by_read_status", ["isRead"]),
+
+    // Live match scores
+    matches: defineTable({
+      tournamentId: v.id("tournaments"),
+      team1Id: v.id("teams"),
+      team2Id: v.id("teams"),
+      team1Name: v.string(),
+      team2Name: v.string(),
+      team1Score: v.optional(v.string()), // e.g., "150/5"
+      team2Score: v.optional(v.string()),
+      team1Overs: v.optional(v.string()), // e.g., "18.3"
+      team2Overs: v.optional(v.string()),
+      currentBatting: v.optional(v.union(v.literal("team1"), v.literal("team2"))),
+      status: v.union(
+        v.literal("upcoming"),
+        v.literal("live"),
+        v.literal("completed")
+      ),
+      winner: v.optional(v.string()),
+      matchDate: v.string(),
+      updatedBy: v.id("users"),
+    }).index("by_tournament", ["tournamentId"])
+      .index("by_status", ["status"]),
   },
   {
     schemaValidation: false,
