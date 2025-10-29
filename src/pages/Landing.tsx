@@ -193,7 +193,7 @@ export default function Landing() {
             alt="Cricket action"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/80 to-primary/85" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/90 to-primary/95" />
         </div>
         <div className="container-modern">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
