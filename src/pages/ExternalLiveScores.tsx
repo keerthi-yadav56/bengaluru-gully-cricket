@@ -43,7 +43,24 @@ export default function ExternalLiveScores() {
     try {
       const data = await fetchMatches({});
       if (data?.data) {
-        setMatches(data.data);
+        // Sort matches: live/ongoing first, then upcoming, then completed
+        const sortedMatches = [...data.data].sort((a, b) => {
+          const aStatus = a.status.toLowerCase();
+          const bStatus = b.status.toLowerCase();
+          
+          // Priority order: live > innings break > upcoming > completed
+          const getPriority = (status: string) => {
+            if (status.includes('live')) return 0;
+            if (status.includes('innings break')) return 1;
+            if (status.includes('not started') || status.includes('upcoming')) return 2;
+            if (status.includes('ended') || status.includes('completed')) return 3;
+            return 4;
+          };
+          
+          return getPriority(aStatus) - getPriority(bStatus);
+        });
+        
+        setMatches(sortedMatches);
         setLastUpdated(new Date());
         toast.success("Scores updated successfully");
       } else {
