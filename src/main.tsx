@@ -15,6 +15,7 @@ import Tournaments from "./pages/Tournaments.tsx";
 import Players from "./pages/Players.tsx";
 import Admin from "@/pages/Admin.tsx";
 import LiveScore from "@/pages/LiveScore.tsx";
+import ExternalLiveScores from "@/pages/ExternalLiveScores.tsx";
 import "./types/global.d.ts";
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
@@ -60,6 +61,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/live-score" element={<LiveScore />} />
+            <Route path="/cricket-scores" element={<ExternalLiveScores />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

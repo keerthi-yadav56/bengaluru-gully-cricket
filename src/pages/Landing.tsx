@@ -12,7 +12,8 @@ import {
   Target,
   Award,
   Zap,
-  TrendingUp
+  TrendingUp,
+  Radio
 } from "lucide-react";
 import { useNavigate } from "react-router";
 
@@ -208,6 +209,15 @@ export default function Landing() {
               >
                 View Tournaments
                 <Trophy className="ml-2 w-5 h-5" />
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline"
+                onClick={() => navigate("/cricket-scores")}
+                className="text-lg px-8 py-6 font-medium bg-gradient-to-r from-red-500/10 to-orange-500/10 hover:from-red-500/20 hover:to-orange-500/20 border-red-500/20"
+              >
+                Live Cricket Scores
+                <Radio className="ml-2 w-5 h-5" />
               </Button>
               <Button 
                 size="lg" 

@@ -11,6 +11,7 @@
 import type * as auth_emailOtp from "../auth/emailOtp.js";
 import type * as auth from "../auth.js";
 import type * as authHelpers from "../authHelpers.js";
+import type * as externalCricket from "../externalCricket.js";
 import type * as http from "../http.js";
 import type * as matches from "../matches.js";
 import type * as messages from "../messages.js";
@@ -38,6 +39,7 @@ declare const fullApi: ApiFromModules<{
   "auth/emailOtp": typeof auth_emailOtp;
   auth: typeof auth;
   authHelpers: typeof authHelpers;
+  externalCricket: typeof externalCricket;
   http: typeof http;
   matches: typeof matches;
   messages: typeof messages;
