@@ -50,14 +50,26 @@ export default function ExternalLiveScores() {
           
           // Priority order: live > innings break > upcoming > completed
           const getPriority = (status: string) => {
-            if (status.includes('live')) return 0;
-            if (status.includes('innings break')) return 1;
-            if (status.includes('not started') || status.includes('upcoming')) return 2;
-            if (status.includes('ended') || status.includes('completed')) return 3;
+            // Check for live/ongoing matches first
+            if (status.includes('live') || status.includes('in progress') || status.includes('ongoing')) return 0;
+            // Innings break
+            if (status.includes('innings break') || status.includes('break')) return 1;
+            // Upcoming/not started
+            if (status.includes('not started') || status.includes('upcoming') || status.includes('scheduled')) return 2;
+            // Completed/ended
+            if (status.includes('ended') || status.includes('completed') || status.includes('finished')) return 3;
+            // Unknown status - put at end
             return 4;
           };
           
-          return getPriority(aStatus) - getPriority(bStatus);
+          const priorityDiff = getPriority(aStatus) - getPriority(bStatus);
+          
+          // If same priority, sort by date (most recent first)
+          if (priorityDiff === 0) {
+            return new Date(b.dateTimeGMT).getTime() - new Date(a.dateTimeGMT).getTime();
+          }
+          
+          return priorityDiff;
         });
         
         setMatches(sortedMatches);
