@@ -79,26 +79,34 @@ export default function Landing() {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               {!isLoading && (
-                <div className="flex items-center gap-3">
-              <Button 
-                onClick={() => {
-                  if (isAuthenticated) {
-                    navigate(user?.role === "admin" ? "/admin" : "/dashboard");
-                  } else {
-                    navigate("/auth");
-                  }
-                }}
-                className="font-medium shadow-md hover:shadow-lg transition-all"
-              >
-                {isAuthenticated ? (user?.role === "admin" ? "Admin Panel" : "Dashboard") : "Get Started"}
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                  <Button 
+                    onClick={() => {
+                      if (isAuthenticated) {
+                        navigate(user?.role === "admin" ? "/admin" : "/dashboard");
+                      } else {
+                        navigate("/auth");
+                      }
+                    }}
+                    size="sm"
+                    className="font-medium shadow-md hover:shadow-lg transition-all text-sm sm:text-base px-3 sm:px-4"
+                  >
+                    <span className="hidden sm:inline">
+                      {isAuthenticated ? (user?.role === "admin" ? "Admin Panel" : "Dashboard") : "Get Started"}
+                    </span>
+                    <span className="sm:hidden">
+                      {isAuthenticated ? (user?.role === "admin" ? "Admin" : "Dashboard") : "Start"}
+                    </span>
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
                   <Button
                     variant="outline"
+                    size="sm"
                     onClick={() => navigate("/admin")}
-                    className="font-medium"
+                    className="font-medium text-sm sm:text-base px-3 sm:px-4"
                   >
-                    Admin Panel
+                    <span className="hidden sm:inline">Admin Panel</span>
+                    <span className="sm:hidden">Admin</span>
                   </Button>
                 </div>
               )}
