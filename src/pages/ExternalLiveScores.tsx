@@ -37,8 +37,15 @@ export default function ExternalLiveScores() {
   const [matches, setMatches] = useState<CricketMatch[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [cacheExpiry, setCacheExpiry] = useState<number | null>(null);
 
-  const loadMatches = async () => {
+  const loadMatches = async (forceRefresh = false) => {
+    // Check if cache is still valid
+    if (!forceRefresh && cacheExpiry && Date.now() < cacheExpiry) {
+      toast.info("Using cached data");
+      return;
+    }
+
     setIsLoading(true);
     try {
       const data = await fetchMatches({});
@@ -74,6 +81,11 @@ export default function ExternalLiveScores() {
         
         setMatches(sortedMatches);
         setLastUpdated(new Date());
+        
+        // Set cache expiry from response or default to 5 minutes
+        const expiryTime = data.cacheExpiry || (Date.now() + 5 * 60 * 1000);
+        setCacheExpiry(expiryTime);
+        
         toast.success("Scores updated successfully");
       } else {
         toast.error("No match data available");
@@ -87,7 +99,8 @@ export default function ExternalLiveScores() {
 
   useEffect(() => {
     loadMatches();
-    const interval = setInterval(loadMatches, 30000);
+    // Auto-refresh every 30 seconds, but will use cache if still valid
+    const interval = setInterval(() => loadMatches(), 30000);
     return () => clearInterval(interval);
   }, []);
 
@@ -126,14 +139,19 @@ export default function ExternalLiveScores() {
             </div>
             <div className="flex items-center gap-3">
               {lastUpdated && (
-                <span className="text-xs text-muted-foreground">
-                  Updated: {lastUpdated.toLocaleTimeString()}
-                </span>
+                <div className="text-xs text-muted-foreground">
+                  <div>Updated: {lastUpdated.toLocaleTimeString()}</div>
+                  {cacheExpiry && (
+                    <div className="text-[10px]">
+                      Cache expires: {new Date(cacheExpiry).toLocaleTimeString()}
+                    </div>
+                  )}
+                </div>
               )}
               <Button
                 variant="outline"
                 size="sm"
-                onClick={loadMatches}
+                onClick={() => loadMatches(true)}
                 disabled={isLoading}
                 className="flex items-center gap-2"
               >
@@ -173,7 +191,7 @@ export default function ExternalLiveScores() {
               <CardContent className="py-12 text-center">
                 <Trophy className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
                 <p className="text-muted-foreground">No live matches at the moment</p>
-                <Button onClick={loadMatches} className="mt-4">
+                <Button onClick={() => loadMatches()} className="mt-4">
                   <RefreshCw className="w-4 h-4 mr-2" />
                   Refresh Scores
                 </Button>
