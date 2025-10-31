@@ -79,7 +79,7 @@ export default function Landing() {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               {!isLoading && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
               <Button 
                 onClick={() => {
                   if (isAuthenticated) {
